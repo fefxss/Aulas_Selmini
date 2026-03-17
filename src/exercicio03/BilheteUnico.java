@@ -6,11 +6,12 @@ public class BilheteUnico {
     int numero;
     double saldo;
     final static double tarifaBase = 5.4;
+    Usuario usuario;
 
-    public BilheteUnico() {
+    public BilheteUnico(Usuario usuario) {
         this.numero = gerarNumero();
         this.saldo = 0;
-
+        this.usuario = usuario;
     }
 
     public int gerarNumero() {
@@ -23,13 +24,25 @@ public class BilheteUnico {
     }
 
     public double calcularTarifa() {
-        return 0.0;
+        double valor = tarifaBase;
+        if (usuario.tipoTarifa.equalsIgnoreCase("estudante") ||
+                usuario.tipoTarifa.equalsIgnoreCase("professor")){
+
+            valor = tarifaBase/2;
+        }
+
+        return valor;
     }
 
+    //boolena é true ou false
     public boolean passarNaCatraca() {
         double valor = calcularTarifa();
 
-        return true;
+        if (valor <= saldo){
+            saldo-=valor;
+            return true;
+        }
+        return false;
     }
 
 }
