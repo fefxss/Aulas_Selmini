@@ -27,20 +27,60 @@ public class Main {
                     case 2 -> registrarSaida();
                     case 3 -> imprimirEstacionado();
                     case 4 -> imprimirReceita();
+                    case 5 -> System.out.println("ParkEasy agradece!");
                     default -> System.out.println("Opção Inválida");
             }
+            System.out.println();
         } while(opcao != 5);{
-            System.out.println("aaa");
+
         }
     }
 
     private static void imprimirReceita() {
+        double valor = 0;
+
+        for (int i=0; i< indexRegistro; i++){
+            if (movimentacao[i].horaSaida != null){
+                valor += movimentacao[i].calcularValor();
+            }
+        }
+        System.out.println("Receita total R$" + valor);
     }
 
     private static void imprimirEstacionado() {
+        for(int i = 0; i < indexRegistro; i++) {
+            if (movimentacao[i].horaSaida == null) {
+                System.out.println(movimentacao[i].veiculo.placa);
+            }
+        }
     }
 
     private static void registrarSaida() {
+        String horaSaida;
+        double valor;
+        Movimentacao movimentacao = pesquisarRegistro();
+        if (movimentacao != null){
+            System.out.println("Hora de saída (hh:mm): ");
+            horaSaida = entrada.next();
+            movimentacao.horaSaida = horaSaida;
+            valor = movimentacao.calcularValor();
+            System.out.println("Valor total a pagar R$" + valor);
+        }
+    }
+
+    private static Movimentacao pesquisarRegistro() {
+        String placa;
+
+        System.out.println("Placa para pesquisa: ");
+        placa = entrada.next().toUpperCase();
+
+        for (int i = 0; i < indexRegistro; i++) {
+            if (movimentacao[i].veiculo.placa.equals(placa)){
+                return movimentacao[i];
+            }
+        }
+        System.out.println("Veículo não encontrado");
+        return null;
     }
 
     private static void registrarEntrada() {
@@ -65,13 +105,15 @@ public class Main {
 
             Proprietario proprietario = new Proprietario(nome, cpf);
             veiculo[indexVeiculo] = new Veiculo(placa, modelo, marca, proprietario);
+            veiculoEncontrado = veiculo[indexVeiculo];
             indexVeiculo++;
-        } else {
-            System.out.println("Hora de entrada: ");
-            horaEntrada = entrada.next();
-            movimentacao[indexRegistro] = new Movimentacao(veiculoEncontrado, horaEntrada);
-            indexRegistro++;
         }
+
+        System.out.println("Hora de entrada (hh:mm): ");
+        horaEntrada = entrada.next();
+        movimentacao[indexRegistro] = new Movimentacao(veiculoEncontrado, horaEntrada);
+        indexRegistro++;
+
     }
 
     private static Veiculo pesquisar() {
