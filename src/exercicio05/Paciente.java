@@ -16,9 +16,5 @@ public class Paciente {
 
     public void setNome(String nome){
         this.nome = nome;
-
     }
-
-
-
 }
