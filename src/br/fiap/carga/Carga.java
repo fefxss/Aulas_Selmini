@@ -2,6 +2,7 @@ package br.fiap.carga;
 
 import br.fiap.cliente.Cliente;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class Carga {
@@ -20,6 +21,16 @@ public class Carga {
     }
 
     // =========== G E T =========== //
+
+    public String getDados(){
+        DecimalFormat df = new DecimalFormat("#,#0.00");
+        String aux = "";
+        aux += "id: " + id + "\n";
+        aux += "Destino" + destino + "\n";
+        aux += "Peso(kgs)" + df.format(peso) + "\n";
+        aux += cliente.getDados();
+        return aux;
+    }
 
     public int getId() {
         return id;
@@ -54,6 +65,7 @@ public class Carga {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
 }
 
 

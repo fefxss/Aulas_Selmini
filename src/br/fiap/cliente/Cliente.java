@@ -9,18 +9,15 @@ public class Cliente {
         this.cliente = cliente;
     }
 
-    public int getCnpj() {
-        return cnpj;
+    public String getDados(){
+        String aux ="";
+        aux += "CNPJ" + cnpj + "\n";
+        aux += "Cliente" + cliente + "\n";
+        return aux;
     }
 
     public String getCliente() {
         return cliente;
-    }
-
-    // =================================== //
-
-    public void setCnpj(int cnpj) {
-        this.cnpj = cnpj;
     }
 
     public void setCliente(String cliente) {
